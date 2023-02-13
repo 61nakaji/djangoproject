@@ -1,0 +1,12 @@
+{% block content %}
+<form action="" method="POST">
+  {{ formset.management_form }} {% for form in formset %} {{ form }}<br />
+  {% endfor %} {% csrf_token %}
+  <button type="submit">検索</button>
+</form>
+<hr />
+
+{% for profile in profile_list %} 名前: {{ profile.name }} 年収: {{
+profile.yearly_income }} 身長: {{ profile.height }} 体重: {{ profile.weight }}
+<hr />
+{% endfor %} {% endblock %}
