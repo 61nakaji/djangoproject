@@ -1,3 +1,11 @@
+<link
+  rel="stylesheet"
+  href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"
+/>
 {% block content %}
 <form action="" method="POST">
   {{ formset.management_form }} {% for form in formset %} {{ form }}<br />
@@ -6,7 +14,14 @@
 </form>
 <hr />
 
-{% for profile in profile_list %} 名前: {{ profile.name }} 年収: {{
-profile.yearly_income }} 身長: {{ profile.height }} 体重: {{ profile.weight }}
+{% for profile in profile_list %}
+<div>
+  <p>
+    曲名: {{ profile.name }} アルバム名: {{profile.album }} アーティスト名:
+    {{profile.artist }} 曲の長さ: {{ profile.length }} 曲調: {{ profile.mode }}
+    人気度: {{ profile.popularity }} ダンス度: {{ profile.danceability }}
+    アコースティック度: {{ profile.acousticness }}
+  </p>
+</div>
 <hr />
 {% endfor %} {% endblock %}

@@ -1,14 +1,22 @@
 from django.shortcuts import render
 
-#フォーム対応
+# フォーム対応
 from django.db.models import Q
 from .forms import ProfileSearchFormSet
 from .models import Profile
 
+# ログイン対応
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (LoginView, LogoutView)
+from .forms import LoginForm
+
+
 def recommend_view(request):
     return render(request, 'recommend/recommend_view.html', {})
 
-#フォーム対応
+# フォーム対応
+
+
 def index(request):
     profile_list = Profile.objects.all()
     formset = ProfileSearchFormSet(request.POST or None)
@@ -21,24 +29,40 @@ def index(request):
 
         # 各フォームの入力をもとに、Qオブジェクトとして検索条件を作っていく
         for form in formset:
-            # Qオブジェクトの引数になる。
-            # {gender: 1, height__gte: 170} → Q(gender=1, height__gte=170)
+
             q_kwargs = {}
+            name = form.cleaned_data.get('name')
+            if name:
+                q_kwargs['name__contains'] = name
+
+            album = form.cleaned_data.get('album')
+            if album:
+                q_kwargs['album__contains'] = album
+
+            artist = form.cleaned_data.get('artist')
+            if artist:
+                q_kwargs['artist__contains'] = artist
+
+            length = form.cleaned_data.get('length')
+            if length:
+                q_kwargs['length__lte'] = length
+
+            # Qオブジェクトの引数になる。
             gender = form.cleaned_data.get('gender')
             if gender:
                 q_kwargs['gender'] = gender
 
-            yearly_income = form.cleaned_data.get('yearly_income')
-            if yearly_income:
-                q_kwargs['yearly_income__gte'] = yearly_income
+            popularity = form.cleaned_data.get('popularity')
+            if popularity:
+                q_kwargs['popularity__gte'] = popularity
 
-            height = form.cleaned_data.get('height')
-            if height:
-                q_kwargs['height__gte'] = height
+            danceability = form.cleaned_data.get('danceability')
+            if danceability:
+                q_kwargs['danceability__gte'] = danceability
 
-            weight = form.cleaned_data.get('weight')
-            if weight:
-                q_kwargs['weight__lte'] = weight
+            acousticness = form.cleaned_data.get('acousticness')
+            if acousticness:
+                q_kwargs['acousticness__gte'] = acousticness
 
             # ここは、そのフォームに入力があった場合にのみ入る。
             # フォームが空なら、q_kwargsは空のままです。
@@ -58,3 +82,15 @@ def index(request):
         'formset': formset,
     }
     return render(request, 'recommend/profile_list.html', context)
+
+
+# ログイン処理
+class Login(LoginView):
+    """ログインページ"""
+    form_class = LoginForm
+    template_name = 'recommend/login.html'
+
+
+class Logout(LoginRequiredMixin, LogoutView):
+    """ログアウトページ"""
+    template_name = 'recommend/login.html'

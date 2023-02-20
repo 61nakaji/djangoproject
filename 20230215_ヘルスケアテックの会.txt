@@ -1,0 +1,46 @@
+伝えたいこと
+・Spotify APIの仕組み
+　・プレイリストIDをもとに、楽曲情報の一覧を取得する
+　　→楽曲の詳細データ(Dansability等)が入っている
+　　　https://zenn.dev/yuriponx/articles/ccb87e276dc361
+　・Input(年代・アーティスト名)をもとに楽曲を検索
+　　→検索条件に詳細な情報は入れられない
+　　　https://qiita.com/EkatoPgm/items/289b2efcdb5af49843c1
+　→楽曲の詳細データをもとに楽曲情報の取得はできない。
+　　　※組み合わせればできるかも、ただ性能面で難しい
+　→楽曲の詳細データを自前のDBに入れる。
+
+・ChatGPTはプログラミングの助けになります。
+
+
+
+参考にしたサイト
+Djangoチュートリアル
+https://tutorial.djangogirls.org/ja/
+
+フォームセットについて
+https://blog.narito.ninja/detail/94
+
+CSVからDBへのインポート
+https://note.nkmk.me/python-pandas-to-csv/
+
+SQLiteの書式
+https://www.aise.ics.saitama-u.ac.jp/~gotoh/Lectures/TUS_IP/IntroSQLBySQLite3.html#toc35
+
+DjangoFieldについて
+https://python.keicode.com/django/form-types.php
+
+うまくワークするために
+
+メモ取るくらいの粒度で考えればよいかなということ。
+
+①みんな一緒の環境上で開発した方がよいかと思っている。
+②これから
+最小粒度でコストがかからない。構築足していく
+
+フィードバック
+アレクサに関してはWebアプリでもNeedsを検証するにはよいかと思っている。
+インプットをもとに音楽が流れるが要件。プラットフォーム
+
+HTML・フロントのところをViewか使いやすいものに変えてあげる。
+
